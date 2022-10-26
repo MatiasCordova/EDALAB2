@@ -24,7 +24,7 @@ public class ListNode {
 
 class Solution {
 
-    public static ListNode mergeKLists(ListNode[] lists) {
+    public static ListNode merge(ListNode[] lists) {
         int k = lists.length;
         ListNode head = null;
         ListNode ptr = null;
@@ -75,7 +75,7 @@ class Solution {
                 l1[i].next = new ListNode();
             }
         }
-        ListNode head = mergeKLists(l1);
+        ListNode head = merge(l1);
         printList(head);
 
     }
