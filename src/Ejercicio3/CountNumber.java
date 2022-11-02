@@ -27,6 +27,7 @@ class CountNumber {
         int n, m;
         n = sc.nextInt();
         int arr[] = new int[n];
+
         for (int i = 0; i < n; i++) {
             m = sc.nextInt();
             arr[i] = m;

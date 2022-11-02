@@ -22,60 +22,82 @@ public class ListNode {
     }
 }
 
-class Solution {
+class arrays {
 
-    public static ListNode merge(ListNode[] lists) {
-        int k = lists.length;
-        ListNode head = null;
-        ListNode ptr = null;
-        PriorityQueue<ListNode> queue = new PriorityQueue<>(new Comparator<ListNode>() {
-            public int compare(ListNode n1, ListNode n2) {
-                return n1.val - n2.val;
-            }
-        });
-        for (int i = 0; i < k; i++) {
-            if (lists[i] != null) {
-                queue.add(lists[i]);
+    public static ListNode mArray(ListNode[] list) {
+        int k = list.length;
+
+        for (int i = 1; i < k; i++) {
+            while (true) {
+
+                ListNode head = list[0];
+                ListNode headn = list[i];
+
+                if (headn == null) {
+                    break;
+                }
+
+                if (head.val > headn.val) {
+                    list[i] = headn.next;
+                    headn.next = head;
+                    list[0] = headn;
+                } else {
+
+                    while (head.next != null) {
+
+                        if (head.next == null) {
+                            list[i] = headn.next;
+                            headn.next = null;
+                            head.next = headn;
+                            head.next.next = null;
+                            break;
+                        }
+
+                        if (head.next.val > headn.val) {
+                            list[i] = headn.next;
+                            headn.next = head.next;
+                            head.next = headn;
+                            break;
+                        }
+
+                        head = head.next;
+
+                    }
+                }
             }
         }
-        while (!queue.isEmpty()) {
-            ListNode curr = queue.poll();
-            if (curr.next != null) {
-                queue.add(curr.next);
-            }
-            if (head == null) {
-                head = curr;
-                ptr = head;
-            } else {
-                ptr.next = curr;
-                ptr = ptr.next;
-            }
-        }
-        return head;
+        return list[0];
     }
-    public static void printList(ListNode node)
-    {
+
+    public static void printList(ListNode node) {
         while (node != null) {
-            System.out.print(node.val + " ");
+            System.out.print(node.val + ", ");
             node = node.next;
         }
     }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int n, m, k;
-        n = sc.nextInt();
-        m = sc.nextInt();
-        ListNode[] l1 = new ListNode[n];
-        
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                k = sc.nextInt();
-                int temp = k; 
-                l1[i] = new ListNode(k);
-                l1[i].next = new ListNode();
-            }
-        }
-        ListNode head = merge(l1);
+        int n, m;
+        n = 3;
+        ListNode l1[] = new ListNode[n];
+
+        l1[0] = new ListNode(6);
+        l1[0].next = new ListNode(10);
+        l1[0].next.next = new ListNode(12);
+        l1[0].next.next.next = new ListNode(20);
+
+        l1[1] = new ListNode(11);
+        l1[1].next = new ListNode(3);
+        l1[1].next.next = new ListNode(5);
+        l1[1].next.next.next = new ListNode(7);
+
+        l1[2] = new ListNode(1);
+        l1[2].next = new ListNode(15);
+        l1[2].next.next = new ListNode(9);
+        l1[2].next.next.next = new ListNode(4);
+
+        ListNode head = mArray(l1);
         printList(head);
 
     }
